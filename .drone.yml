@@ -1,0 +1,26 @@
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: ikaruswill/descheduler
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+trigger:
+  branch:
+  - master
+  - 0.*.*
+  event:
+  - push
+  - tag
